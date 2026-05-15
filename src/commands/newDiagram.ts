@@ -16,7 +16,6 @@ export class NewDiagramModal extends Modal {
 	onOpen(): void {
 		const { contentEl } = this;
 		contentEl.empty();
-		contentEl.createEl('h2', { text: 'New diagram' });
 
 		new Setting(contentEl)
 			.setName('Diagram name')

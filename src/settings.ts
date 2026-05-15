@@ -44,8 +44,8 @@ export class ObDrawIOSettingTab extends PluginSettingTab {
 			);
 
 		new Setting(containerEl)
-			.setName('Follow Obsidian theme')
-			.setDesc('Automatically switch the diagram editor to dark or light mode based on the current Obsidian theme.')
+			.setName('Follow theme')
+			.setDesc('Automatically switch the diagram editor to dark or light mode based on the current theme.')
 			.addToggle(toggle =>
 				toggle
 					.setValue(this.plugin.settings.followTheme)
@@ -72,7 +72,7 @@ export class ObDrawIOSettingTab extends PluginSettingTab {
 			.setDesc('Folder where new diagrams are created. Leave empty to use the vault root.')
 			.addText(text =>
 				text
-					.setPlaceholder('e.g. Diagrams')
+					.setPlaceholder('Diagrams')
 					.setValue(this.plugin.settings.defaultFolder)
 					.onChange(async value => {
 						this.plugin.settings.defaultFolder = value.trim();
@@ -85,7 +85,7 @@ export class ObDrawIOSettingTab extends PluginSettingTab {
 			.setDesc('Language code for the diagram editor (e.g. "en", "zh", "de"). Leave empty to use the browser default.')
 			.addText(text =>
 				text
-					.setPlaceholder('e.g. zh')
+					.setPlaceholder('E.g., zh')
 					.setValue(this.plugin.settings.language)
 					.onChange(async value => {
 						this.plugin.settings.language = value.trim();
