@@ -1,7 +1,7 @@
 {
 	"name": "obdrawio",
-	"version": "0.1.0",
-	"description": "A visual diagram editor (ER diagrams) for Obsidian",
+	"version": "0.1.1",
+	"description": "A visual diagram editor (ER diagrams)",
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
