@@ -66,7 +66,7 @@ export class DiagramView extends TextFileView {
 			spin: '1',
 		});
 
-		if (this.plugin.settings.followTheme && document.body.classList.contains('theme-dark')) {
+		if (this.plugin.settings.followTheme && activeDocument.body.classList.contains('theme-dark')) {
 			params.set('ui', 'dark');
 		}
 

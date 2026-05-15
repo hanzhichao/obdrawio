@@ -1,13 +1,15 @@
 import { App, Editor, MarkdownView, Modal, Notice, TFile } from 'obsidian';
 import type ObDrawIOPlugin from '../main';
 import { createAndOpenDiagram } from './newDiagram';
-import { DRAW_IO_VIEW_TYPE, DRAWIO_EXTENSIONS } from '../types';
+import { DRAWIO_EXTENSIONS } from '../types';
 
 export function registerCommands(plugin: ObDrawIOPlugin): void {
 	plugin.addCommand({
 		id: 'new-diagram',
 		name: 'New diagram',
-		callback: () => createAndOpenDiagram(plugin.app, plugin),
+		callback: () => {
+			void createAndOpenDiagram(plugin.app, plugin);
+		},
 	});
 
 	plugin.addCommand({
@@ -24,7 +26,6 @@ export function registerCommands(plugin: ObDrawIOPlugin): void {
 				return;
 			}
 
-			// Show a simple quick pick via suggester-style modal
 			new DiagramPickerModal(plugin.app, files, (file: TFile) => {
 				const link = plugin.app.fileManager.generateMarkdownLink(file, view.file?.path ?? '');
 				editor.replaceSelection(link);
@@ -40,7 +41,7 @@ export function registerCommands(plugin: ObDrawIOPlugin): void {
 			const isDiagram = active && DRAWIO_EXTENSIONS.includes(active.extension);
 			if (isDiagram && !checking) {
 				const leaf = plugin.app.workspace.getLeaf('tab');
-				leaf.openFile(active!);
+				void leaf.openFile(active);
 			}
 			return !!isDiagram;
 		},
@@ -90,7 +91,7 @@ class DiagramPickerModal extends Modal {
 
 		render('');
 		search.addEventListener('input', () => render(search.value));
-		setTimeout(() => search.focus(), 50);
+		window.setTimeout(() => search.focus(), 50);
 	}
 
 	onClose(): void {

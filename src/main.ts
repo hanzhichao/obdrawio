@@ -1,4 +1,4 @@
-import { Plugin, TFile, WorkspaceLeaf, Menu } from 'obsidian';
+import { Plugin, TFile, Menu } from 'obsidian';
 import { DEFAULT_SETTINGS, ObDrawIOSettings, ObDrawIOSettingTab } from './settings';
 import { DiagramView } from './view/DiagramView';
 import { registerCommands } from './commands/index';
@@ -15,7 +15,7 @@ export default class ObDrawIOPlugin extends Plugin {
 		this.registerExtensions(DRAWIO_EXTENSIONS, DRAW_IO_VIEW_TYPE);
 
 		this.addRibbonIcon('workflow', 'New diagram', () => {
-			createAndOpenDiagram(this.app, this);
+			void createAndOpenDiagram(this.app, this);
 		});
 
 		registerCommands(this);
@@ -49,17 +49,13 @@ export default class ObDrawIOPlugin extends Plugin {
 							.onClick(async () => {
 								for (const file of drawioFiles) {
 									const leaf = this.app.workspace.getLeaf('tab');
-									await leaf.openFile(file, { active: false });
+									void leaf.openFile(file, { active: false });
 								}
 							});
 					});
 				}
 			})
 		);
-	}
-
-	onunload(): void {
-		this.app.workspace.detachLeavesOfType(DRAW_IO_VIEW_TYPE);
 	}
 
 	async loadSettings(): Promise<void> {

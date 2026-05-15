@@ -1,13 +1,13 @@
 import { App, Modal, Setting, Notice, TFolder, normalizePath } from 'obsidian';
 import type ObDrawIOPlugin from '../main';
-import { EMPTY_DIAGRAM, DRAW_IO_VIEW_TYPE } from '../types';
+import { EMPTY_DIAGRAM } from '../types';
 
 export class NewDiagramModal extends Modal {
 	private name = '';
 	private folder = '';
-	private onSubmit: (path: string) => void;
+	private onSubmit: (path: string) => Promise<void>;
 
-	constructor(app: App, defaultFolder: string, onSubmit: (path: string) => void) {
+	constructor(app: App, defaultFolder: string, onSubmit: (path: string) => Promise<void>) {
 		super(app);
 		this.folder = defaultFolder;
 		this.onSubmit = onSubmit;
@@ -63,7 +63,7 @@ export class NewDiagramModal extends Modal {
 						const dir = this.folder ? `${this.folder}/` : '';
 						const path = normalizePath(`${dir}${this.name}.drawio`);
 						this.close();
-						this.onSubmit(path);
+						void this.onSubmit(path);
 					})
 			)
 			.addButton(btn =>
